@@ -1,0 +1,76 @@
+[INFO][2017-04-13 10:59:01,091][org.springframework.test.context.support.DefaultTestContextBootstrapper]Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[INFO][2017-04-13 10:59:01,107][org.springframework.test.context.support.DefaultTestContextBootstrapper]Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5f0101fb, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@3b293677, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@eb6dcf9, org.springframework.test.context.support.DirtiesContextTestExecutionListener@76566fb, org.springframework.test.context.transaction.TransactionalTestExecutionListener@124bec88, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3695de1a]
+[INFO][2017-04-13 10:59:01,200][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring.xml]
+[INFO][2017-04-13 10:59:01,403][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-hibernate.xml]
+[INFO][2017-04-13 10:59:01,450][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@2416cef9: startup date [Thu Apr 13 10:59:01 CST 2017]; root of context hierarchy
+[INFO][2017-04-13 10:59:01,559][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from class path resource [config.properties]
+[INFO][2017-04-13 10:59:01,559][org.springframework.context.support.PropertySourcesPlaceholderConfigurer]Loading properties file from class path resource [config.properties]
+[INFO][2017-04-13 10:59:01,793][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} inited
+[INFO][2017-04-13 10:59:02,075][org.hibernate.annotations.common.Version]HCANN000001: Hibernate Commons Annotations {4.0.2.Final}
+[INFO][2017-04-13 10:59:02,075][org.hibernate.Version]HHH000412: Hibernate Core {4.2.11.Final}
+[INFO][2017-04-13 10:59:02,075][org.hibernate.cfg.Environment]HHH000206: hibernate.properties not found
+[INFO][2017-04-13 10:59:02,075][org.hibernate.cfg.Environment]HHH000021: Bytecode provider name : javassist
+[INFO][2017-04-13 10:59:02,309][org.hibernate.dialect.Dialect]HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+[INFO][2017-04-13 10:59:02,324][org.hibernate.engine.jdbc.internal.LobCreatorBuilder]HHH000423: Disabling contextual LOB creation as JDBC driver reported JDBC version [3] less than 4
+[WARN][2017-04-13 10:59:02,449][org.hibernate.mapping.RootClass]HHH000038: Composite-id class does not override equals(): com.panhong.model.OperatingInfo
+[WARN][2017-04-13 10:59:02,449][org.hibernate.mapping.RootClass]HHH000039: Composite-id class does not override hashCode(): com.panhong.model.OperatingInfo
+[INFO][2017-04-13 10:59:02,449][org.hibernate.engine.transaction.internal.TransactionFactoryInitiator]HHH000399: Using default transaction strategy (direct JDBC transactions)
+[INFO][2017-04-13 10:59:02,465][org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory]HHH000397: Using ASTQueryTranslatorFactory
+[INFO][2017-04-13 10:59:02,496][org.hibernate.validator.internal.util.Version]HV000001: Hibernate Validator 5.3.4.Final
+[INFO][2017-04-13 10:59:02,699][org.hibernate.tool.hbm2ddl.SchemaUpdate]HHH000228: Running hbm2ddl schema update
+[INFO][2017-04-13 10:59:02,699][org.hibernate.tool.hbm2ddl.SchemaUpdate]HHH000102: Fetching database metadata
+[INFO][2017-04-13 10:59:02,714][org.hibernate.tool.hbm2ddl.SchemaUpdate]HHH000396: Updating schema
+[INFO][2017-04-13 10:59:02,730][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.inforelease
+[INFO][2017-04-13 10:59:02,730][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [inforeleasedate, inforeleaseid, infocontent, promulgator]
+[INFO][2017-04-13 10:59:02,730][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: []
+[INFO][2017-04-13 10:59:02,730][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [primary]
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.machineinfo
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [model, building, school, machinetype, machineid, compus]
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: [fk_bsd0oauhat6vla77abn8sfe0x]
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [primary, fk_bsd0oauhat6vla77abn8sfe0x]
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.maintenancerecord
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [maintenancedate, machineid, processingmethod, maintenancerecordid, wechatid, maintenancetype, symptom]
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: [fk_kp57wlahys18jub066rv6p2k1, fk_7wwl21qtbmro2m2xjh9btlt00, fk_guok21cn7a5q8fjnkioq36vgr]
+[INFO][2017-04-13 10:59:02,746][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [fk_kp57wlahys18jub066rv6p2k1, fk_7wwl21qtbmro2m2xjh9btlt00, primary, fk_guok21cn7a5q8fjnkioq36vgr]
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.maintenancetype
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [maintenancename, maintenancetype]
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: []
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [primary]
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.operatinginfo
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [school, compus, washingprice]
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: []
+[INFO][2017-04-13 10:59:02,761][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [primary]
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.orderrecord
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [amount, paymentstatus, orderdate, machineid, paymentdate, ordertype, orderid, wechatid]
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: [fk_g6lhkyw9ybys0bw3t38y3mf89, fk_4sy2to6a0xssy9gw84vriouaw]
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [primary, fk_g6lhkyw9ybys0bw3t38y3mf89, fk_4sy2to6a0xssy9gw84vriouaw]
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.systemrecord
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [responsibleworker, systemrecordid, school, changingdate, visionold, compus, visionnew, changingobjects, changingcontent]
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: [fk_jinps6wcpsadldy1kyrk022l8]
+[INFO][2017-04-13 10:59:02,777][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [fk_jinps6wcpsadldy1kyrk022l8, primary]
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.userinfo
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [valid, unfollowdate, nickname, code, city, country, userproperty, codetime, vipproperty, area, school, name, province, gender, openid, telephone, followdate, studentid]
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: [fk_hj069d354s2i5vadb2ubpjuja]
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [fk_hj069d354s2i5vadb2ubpjuja, primary]
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000261: Table found: wxws_test.userproperty
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000037: Columns: [userproperty, gradename, isvip, discount]
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000108: Foreign keys: []
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.TableMetadata]HHH000126: Indexes: [primary]
+[INFO][2017-04-13 10:59:02,792][org.hibernate.tool.hbm2ddl.SchemaUpdate]HHH000232: Schema update complete
+[INFO][2017-04-13 10:59:02,870][org.springframework.orm.hibernate4.HibernateTransactionManager]Using DataSource [{
+	CreateTime:"2017-04-13 10:59:01",
+	ActiveCount:0,
+	PoolingCount:1,
+	CreateCount:1,
+	DestroyCount:0,
+	CloseCount:2,
+	ConnectCount:2,
+	Connections:[
+		{ID:1796685039, ConnectTime:"2017-04-13 10:59:02", UseCount:2, LastActiveTime:"2017-04-13 10:59:02"}
+	]
+}] of Hibernate SessionFactory for HibernateTransactionManager
+[WARN][2017-04-13 10:59:03,277][org.hibernate.hql.internal.ast.HqlSqlWalker][DEPRECATION] Encountered positional parameter near line 1, column 46.  Positional parameter are considered deprecated; use named parameters or JPA-style positional parameters instead.
+[INFO][2017-04-13 10:59:03,339][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@2416cef9: startup date [Thu Apr 13 10:59:01 CST 2017]; root of context hierarchy
+[INFO][2017-04-13 10:59:03,339][com.alibaba.druid.pool.DruidDataSource]{dataSource-1} closed
+[INFO][2017-04-19 21:13:25,221][org.apache.http.impl.client.DefaultHttpClient]I/O exception (java.net.SocketException) caught when processing request: Connection reset
+[INFO][2017-04-19 21:13:25,231][org.apache.http.impl.client.DefaultHttpClient]Retrying request

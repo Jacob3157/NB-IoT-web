@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc  
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 注册用于支持注解的控制器的请求处理方法的bean对象，不适用resources标签不需要使用此元素 -->
+	<annotation-driven />
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- <resources mapping="/WEB-INF/css/*" location="/WEB-INF/css/" />
+	<resources mapping="/WEB-INF/images/*" location="/WEB-INF/images/" />
+	<resources mapping="/WEB-INF/js/*" location="/WEB-INF/js/" />
+	<resources mapping="/*.html" location="/" /> -->
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory 
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>--> 
+	
+	<!-- 配置freeMarker的模板路径 -->  
+     <beans:bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
+        <beans:property name="templateLoaderPath" value="WEB-INF/views/ftl/" />  
+        <beans:property name="defaultEncoding" value="UTF-8" />  
+     </beans:bean>
+     <!-- freemarker视图解析器 -->  
+     <beans:bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
+        <beans:property name="suffix" value=".ftl" />  
+        <beans:property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <beans:property name="contentType" value="text/html;charset=UTF-8" />  
+        <!-- 此变量值为pageContext.request, 页面使用方法：rc.contextPath -->  
+        <beans:property name="requestContextAttribute" value="rc" />  
+     </beans:bean>
+     
+     <!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
+     <beans:bean id="multipartResolver" 
+     		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8" />
+        <!-- 指定所上传文件的总大小,单位字节。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+       <beans:property name="maxUploadSize" value="10240000" />
+     </beans:bean>  
+	<!-- 扫描控制器所在的基本包 -->
+	<context:component-scan base-package="com.panhong.controller" />
+	
+	<!-- 配置拦截器，用于验证用户是否登录 -->
+	<mvc:interceptors>  
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <mvc:exclude-mapping path="/check/test" />
+        <mvc:exclude-mapping path="/check/index" />
+        <mvc:exclude-mapping path="/check/ticket" />
+        <mvc:exclude-mapping path="/check/info_app" />
+        <mvc:exclude-mapping path="/check/token" />
+        <mvc:exclude-mapping path="/check/mcode" />
+        <mvc:exclude-mapping path="/check/login" />
+        <mvc:exclude-mapping path="/check/intern" />
+        <mvc:exclude-mapping path="/check/upgrade" />
+        <mvc:exclude-mapping path="/check/discount" />
+        <mvc:exclude-mapping path="/check/maintenance" />  
+        <mvc:exclude-mapping path="/check/washer_scan_app" />  
+        <mvc:exclude-mapping path="/check/washer_detail_app" />  
+        <mvc:exclude-mapping path="/check/machine_app" />  
+        <mvc:exclude-mapping path="/check/disinfect_record_app" />  
+        <mvc:exclude-mapping path="/check/disinfect_detail_app" />  
+        <mvc:exclude-mapping path="/check/service_record_app" />  
+        <mvc:exclude-mapping path="/check/service_detail_app" />  
+        <mvc:exclude-mapping path="/check/parts_scan_app" />  
+        <mvc:exclude-mapping path="/check/getMaintenanceInfo" />  
+        <mvc:exclude-mapping path="/check/getPartsInfo" />  
+        <mvc:exclude-mapping path="/select/price" /> 
+        <mvc:exclude-mapping path="/select/getBuildings" />  
+        <mvc:exclude-mapping path="/select/machineByBuilding" />  
+        <mvc:exclude-mapping path="/select/getMachineName" />  
+        <mvc:exclude-mapping path="/add/user" />
+        <mvc:exclude-mapping path="/add/order" />
+        <mvc:exclude-mapping path="/add/bindInfo" />
+        <mvc:exclude-mapping path="/add/userLocation" />
+        <mvc:exclude-mapping path="/update/machineStatus" />
+        <mvc:exclude-mapping path="/delete/user" />
+        <mvc:exclude-mapping path="/update/user" />
+        <mvc:exclude-mapping path="/update/bindInfo" />
+        <mvc:exclude-mapping path="/update/test" />
+        
+        <beans:bean id="loginInterceptor" class="com.panhong.util.LoginInterceptor"/>  
+    </mvc:interceptor>  
+	</mvc:interceptors> 
+	
+	
+</beans:beans>

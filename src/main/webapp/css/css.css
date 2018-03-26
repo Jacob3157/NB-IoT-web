@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{ margin:0px;  font-size:12px; font-family:"微软雅黑";  color:#333333; background:#f7f7f7 }
+IMG {	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; padding:0; margin:0;}
+a:link { color:#333333; text-decoration:none; font-size:14px; }
+a:visited { color:#333333; text-decoration:none;font-size:14px; }
+a:hover { color:#009a6d; text-decoration:none;font-size:14px; }
+a:active { color:#333333; text-decoration:none;font-size:14px; }
+li{ list-style:none}
+
+
+/*头部样式*/
+.top{ width:100%; background:url(login_01.jpg) top center no-repeat; height:37px }
+.top .warp{ width:1000px; margin:0 auto}
+.top .lefts{ font-family:"微软雅黑"; font-size:14px; color:#FFF; float:left; line-height:37px}
+.top .rights{ font-family:"微软雅黑"; font-size:14px; color:#FFF; float:right; line-height:37px}
+
+.dh{width:100%; background:#fff; height:106px; margin-bottom:10px }
+.dh .warps{ width:1000px; margin:0 auto}
+.dh .warps ul{ line-height:35px; color:#717071; font-size:14px; width:100%}
+.dh .warps ul li { float:left; text-align:center; width:70px}
+
+.content{margin:0 auto; width:1000px; border:1px solid #d0d0d0; height:459px; background:#FFF url(bj_03.jpg) bottom right no-repeat; margin-bottom:30px; padding-top:150px}

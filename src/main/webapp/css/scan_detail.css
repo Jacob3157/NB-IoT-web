@@ -1,0 +1,33 @@
+body{margin:0 auto;padding:0;background:#f0eff5; }
+.main{width:100%;height:100%;margin:0 auto;}
+.header{width:100%;height:80px;text-align:center;line-height:80px; background:cornflowerblue;}
+
+.mainbody
+{
+	width:100%;
+	height:80%;
+	margin: 2% auto;
+}
+
+ul li
+{
+    margin:10px 5px 10px 10px;
+    background:#CCC; 
+}
+ul li a{ display:block; width: 100%; background:#CCC; }
+ul li a:hover{ background:#F5F5F5; }
+
+h1
+{
+	display:inline-block;
+	font-size:36px;
+}
+h2
+{
+	display:inline-block;
+	color:blueviolet;
+	font-size:34px;
+}
+.spa{
+	font-size:30px;
+}
