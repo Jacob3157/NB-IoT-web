@@ -4,12 +4,22 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executors;
+
+import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
+import org.apache.mina.core.session.ExpiringSessionRecycler;
+import org.apache.mina.filter.executor.ExecutorFilter;
+import org.apache.mina.filter.logging.LoggingFilter;
+import org.apache.mina.transport.socket.DatagramSessionConfig;
+import org.apache.mina.transport.socket.nio.NioDatagramAcceptor;
 
 import com.panhong.model.Client;
 import com.panhong.model.Command;
 import com.panhong.util.SingleUdpList;
+import com.panhong.util.UDPServerHandler;
 
 
 public class UdpServerThread implements Runnable {
@@ -32,11 +42,37 @@ public class UdpServerThread implements Runnable {
 		System.out.println(new Date()+"UdpServer");
 
 		try {
-			receive();
+			receiveByMina();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void receiveByMina() throws IOException {
+		 // ** Acceptor设置
+        NioDatagramAcceptor acceptor = new NioDatagramAcceptor();
+        // 此行代码能让你的程序整体性能提升10倍
+        DefaultIoFilterChainBuilder chain = acceptor.getFilterChain();
+        chain.addLast("threadPool",new ExecutorFilter(Executors.newCachedThreadPool()));
+        chain.addLast("logger", new LoggingFilter());
+        // 设置MINA2的IoHandler实现类
+        acceptor.setHandler(new UDPServerHandler());
+        // 设置会话超时时间（单位：毫秒），不设置则默认是10秒，请按需设置
+        acceptor.setSessionRecycler(new ExpiringSessionRecycler(15 * 1000));
+
+        // ** UDP通信配置 设置是否重用地址？也就是每个发过来的udp信息都是一个地址
+        DatagramSessionConfig dcfg = acceptor.getSessionConfig();
+        dcfg.setReuseAddress(true);
+        // 设置输入缓冲区的大小，压力测试表明：调整到2048后性能反而降低
+        dcfg.setReceiveBufferSize(1024);
+        // 设置输出缓冲区的大小，压力测试表明：调整到2048后性能反而降低
+        dcfg.setSendBufferSize(1024);
+
+        // ** UDP服务端开始侦听
+        acceptor.bind(new InetSocketAddress(PORT));
+
+        System.out.println("UDPserver start in 30000 ..");
 	}
 
 	public void receive()throws IOException  
@@ -46,14 +82,8 @@ public class UdpServerThread implements Runnable {
             DatagramSocket socket = new DatagramSocket(PORT))  
         {  
             // 采用循环接收数据  
-//        	Client client = new Client();
-//            StringBuffer sbu = new StringBuffer();
-//            sbu.append((char) 48);sbu.append((char) 49);sbu.append((char) 50);sbu.append((char) 51);
-//            sbu.append((char) 52);sbu.append((char) 53);sbu.append((char) 54);sbu.append((char) 55);
-//        	client.setResponse(sbu.toString());	
         	List<Client> list = SingleUdpList.getSingleUdpList().getList();
         	List<Command> commandList = SingleUdpList.getSingleUdpList().getCommandList();
-//        	list.add(client);
         	int count = 0;
         	StringBuffer sbu = new StringBuffer();
         	sbu.append((char) 69);sbu.append((char) 82);sbu.append((char) 82);sbu.append((char) 79);
@@ -69,20 +99,18 @@ public class UdpServerThread implements Runnable {
 	                byte[] result = new byte[inPacket.getLength()];
 	                System.arraycopy(inPacket.getData(), 0, result, 0, result.length);
 					
-//                client = list.get(0);				//暂时假设只有一个客户端
-//                client.setIP(data[0]);			//data[0] :IP
-//                client.setPort(Long.valueOf(data[1]));// data[1]: Port
-//                client.setContent(data[2]);				//data[2]: Content
-										//将收到的数据存进list中
+					//将收到的数据存进list中
 					Client client = new Client(data[0], Long.valueOf(data[1]));	
 					String contentHex = getContentHex(result);
 					client.setContentHex(contentHex);
 					client.setContent(getContent(contentHex));
 					System.out.println(list.toString());
-					
+					System.out.println(inPacket.getSocketAddress());
+					System.out.println(inPacket.getAddress());
+					System.out.println(inPacket.getPort());
 					
 					// 初始化发送用的DatagramSocket，它包含一个长度为0的字节数组  
-					outPacket = new DatagramPacket(new byte[0] , 0  , InetAddress.getByName(DEST_IP) , inPacket.getPort()); 
+					outPacket = new DatagramPacket(new byte[0] , 0  , inPacket.getAddress() , inPacket.getPort()); 
 					int i = 0;
 					for(i = 0; i < 16; i++)
 					{
@@ -104,7 +132,7 @@ public class UdpServerThread implements Runnable {
 					outPacket.setData(buff);  
 					// 发送数据报  
 					socket.send(outPacket); 
-					
+					System.out.println("发送结束");
 					if(count >=10) {						//放入页面实时展示list，最多10个
 						list.remove(0);
 						list.add(client);
