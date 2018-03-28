@@ -37,6 +37,30 @@
 		<property name="removeAbandonedTimeout" value="1800" />
 		<property name="logAbandoned" value="true" />
 	</bean>
+	
+	<bean name="dataSourceNB" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc_url_NB}" />
+		<property name="username" value="${jdbc_username_NB}" />
+		<property name="password" value="${jdbc_password_NB}" />
+		<property name="driverClassName" value="${driverClassName}"/>
+
+		<property name="initialSize" value="0" />
+		<property name="maxActive" value="20" />
+		<property name="minIdle" value="0" />
+		<property name="maxWait" value="60000" />
+
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="true" />
+	</bean>
 
 	<!-- hibernate session -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -55,6 +79,27 @@
 		<property name="packagesToScan">
 			<list>
 				<value>com.panhong.model</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- hibernate NB session -->
+	<bean id="NBsessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceNB" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+				<prop key="current_session_context_class">thread</prop>
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.panhong.model.NB</value>
 			</list>
 		</property>
 	</bean>
@@ -91,10 +136,47 @@
 		</tx:attributes>
 	</tx:advice>
 	
+	<!-- NB transaction manager -->
+	<bean name="NBtransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="NBsessionFactory"></property>
+	</bean>
+	<!-- 事务Advice -->
+	<tx:advice id="NBtransactionAdvice" transaction-manager="NBtransactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="append*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="saveOrUpdate*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="init" propagation="REQUIRED" />
+			<tx:method name="delAndInit" propagation="REQUIRED" />
+			<tx:method name="repair*" propagation="REQUIRED" />
+			<tx:method name="upload*" propagation="REQUIRED" />
+			<tx:method name="roleEdit*" propagation="REQUIRED" />
+
+			<tx:method name="get*" propagation="REQUIRED"  read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="search*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+	
 	<!-- 用于配置哪些类的哪些方法参与事务 -->
 	<aop:config>
 		<aop:pointcut id="transactionPointcut" expression="execution(* com.panhong.service..*Impl.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
 	</aop:config>
 
+	<!-- 用于配置哪些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:pointcut id="NBtransactionPointcut" expression="execution(* com.panhong.service..*Impl.*(..))" />
+		<aop:advisor pointcut-ref="NBtransactionPointcut" advice-ref="NBtransactionAdvice" />
+	</aop:config>
 </beans>

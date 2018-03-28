@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.panhong.dao.InfoReleaseDao;
@@ -17,7 +18,7 @@ import com.panhong.model.InfoRelease;
 public class InfoReleaseDaoImpl implements InfoReleaseDao {
 	
 	
-	@Resource
+	@Resource(name = "sessionFactory")
 	public SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

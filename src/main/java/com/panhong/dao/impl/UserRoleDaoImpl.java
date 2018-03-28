@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.panhong.dao.UserRoleDao;
@@ -16,7 +17,7 @@ import com.panhong.model.Auth_User_Role;
 @Repository
 public class UserRoleDaoImpl implements UserRoleDao {
 	
-	@Resource
+	@Resource(name = "sessionFactory")
 	public SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

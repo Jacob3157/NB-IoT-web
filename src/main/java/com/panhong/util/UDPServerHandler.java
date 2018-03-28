@@ -8,12 +8,18 @@ import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.panhong.dao.WelllidDao;
 import com.panhong.model.Client;
-import com.panhong.model.Command;
+import com.panhong.model.NB.Command;
+import com.panhong.service.WelllidService;
+import com.panhong.service.impl.WelllidServiceImpl;
 
 public class UDPServerHandler extends IoHandlerAdapter {
 
+
+	private static WelllidService welllidService;
 	
 	private List<Client> list = null;
 	private List<Command> commandList = null;
@@ -22,14 +28,18 @@ public class UDPServerHandler extends IoHandlerAdapter {
 	public UDPServerHandler() {
 		super();
 		// 采用循环接收数据  
-    	list = SingleUdpList.getSingleUdpList().getList();
-    	commandList = SingleUdpList.getSingleUdpList().getCommandList();
-    	StringBuffer sbu = new StringBuffer();
-    	sbu.append((char) 69);sbu.append((char) 82);sbu.append((char) 82);sbu.append((char) 79);
-        sbu.append((char) 82);
-        error = sbu.toString();
-		
+		SingleUdpList singleUdpList = SingleUdpList.getSingleUdpList();
+    	list = singleUdpList.getList();
+    	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+		welllidService = context.getBean(WelllidServiceImpl.class);
+		commandList = welllidService.getCommandInfo();
+		StringBuffer sbu = new StringBuffer();
+		sbu.append((char) 69);sbu.append((char) 82);sbu.append((char) 82);sbu.append((char) 79);
+		sbu.append((char) 82);
+		error = sbu.toString();
 	}
+	
+
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		System.out.println("Session created...");
@@ -100,7 +110,12 @@ public class UDPServerHandler extends IoHandlerAdapter {
 
           // 组织IoBuffer数据包的方法：本方法才可以正确地让客户端UDP收到byte数组
           IoBuffer buf = IoBuffer.wrap(buff);
-
+          int delayTime = SingleUdpList.getSingleUdpList().getDelayTime();
+          if(delayTime != 0) {
+//        	  System.out.println(System.currentTimeMillis());
+        	  Thread.currentThread().sleep(delayTime);
+//        	  System.out.println(System.currentTimeMillis());
+          }
           // 向客户端写数据
           WriteFuture future = session.write(buf);
           // 在100毫秒超时间内等待写完成

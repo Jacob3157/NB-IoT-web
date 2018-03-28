@@ -3,7 +3,6 @@ package com.panhong.thread;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +16,7 @@ import org.apache.mina.transport.socket.DatagramSessionConfig;
 import org.apache.mina.transport.socket.nio.NioDatagramAcceptor;
 
 import com.panhong.model.Client;
-import com.panhong.model.Command;
+import com.panhong.model.NB.Command;
 import com.panhong.util.SingleUdpList;
 import com.panhong.util.UDPServerHandler;
 
