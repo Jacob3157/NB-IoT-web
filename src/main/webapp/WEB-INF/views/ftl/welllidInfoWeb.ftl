@@ -141,7 +141,7 @@
 		    onSubmit: function(){
 		    },
 		    success:function(message){
-		    	updateNBConfig();
+		    	updateCommandList();
 		    }
 		});
 

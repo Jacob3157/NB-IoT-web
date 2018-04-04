@@ -32,7 +32,6 @@ public class UDPServerHandler extends IoHandlerAdapter {
     	list = singleUdpList.getList();
     	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 		welllidService = context.getBean(WelllidServiceImpl.class);
-		commandList = welllidService.getCommandInfo();
 		StringBuffer sbu = new StringBuffer();
 		sbu.append((char) 69);sbu.append((char) 82);sbu.append((char) 82);sbu.append((char) 79);
 		sbu.append((char) 82);
@@ -87,7 +86,7 @@ public class UDPServerHandler extends IoHandlerAdapter {
 			client.setContentHex(contentHex);
 			client.setContent(getContent(contentHex));
 			System.out.println(list.toString());
-			
+			commandList = welllidService.getCommandInfo();
 			int i = 0;
 			for(i = 0; i < 16; i++)
 			{
