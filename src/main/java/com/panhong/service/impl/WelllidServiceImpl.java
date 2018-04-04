@@ -41,26 +41,42 @@ public class WelllidServiceImpl implements WelllidService {
 		Command command =  SingleUdpList.getSingleUdpList()
 				.getCommandList().get(formNum.getNum());//获取修改的Command对象
 		
-        StringBuffer sbu = new StringBuffer();				//拼接获得的命令
-        sbu.append((char) Integer.parseInt(formNum.getOne(),16));
-        sbu.append((char) Integer.parseInt(formNum.getTwo(),16));
-        sbu.append((char) Integer.parseInt(formNum.getThree(),16));
-        sbu.append((char) Integer.parseInt(formNum.getFour(),16));
-        sbu.append((char) Integer.parseInt(formNum.getFive(),16));
-        sbu.append((char) Integer.parseInt(formNum.getSix(),16));
-        sbu.append((char) Integer.parseInt(formNum.getSeven(),16));
-        sbu.append((char) Integer.parseInt(formNum.getEight(),16));        
+        StringBuffer sbu = new StringBuffer();				//拼接获得的命令  字符型
+        StringBuffer sbuHex = new StringBuffer();				//拼接获得的命令  16进制
+        if(formNum.getOne() != null && formNum.getOne() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getOne(),16));
+        	sbuHex.append(checkNum(formNum.getOne()));sbuHex.append("-");				//如果只有一位，则在前面补零
+        }
+        if(formNum.getTwo() != null && formNum.getTwo() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getTwo(),16));
+        	sbuHex.append(checkNum(formNum.getTwo()));sbuHex.append("-");
+        }
+        if(formNum.getThree() != null && formNum.getThree() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getThree(),16));
+        	sbuHex.append(checkNum(formNum.getThree()));sbuHex.append("-");
+        }
+        if(formNum.getFour() != null && formNum.getFour() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getFour(),16));
+        	sbuHex.append(checkNum(formNum.getFour()));sbuHex.append("-");
+        }
+        if(formNum.getFive() != null && formNum.getFive() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getFive(),16));
+        	sbuHex.append(checkNum(formNum.getFive()));sbuHex.append("-");
+        }
+        if(formNum.getSix() != null && formNum.getSix() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getSix(),16));
+        	sbuHex.append(checkNum(formNum.getSix()));sbuHex.append("-");
+        }
+        if(formNum.getSeven() != null && formNum.getSeven() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getSeven(),16));
+        	sbuHex.append(checkNum(formNum.getSeven()));sbuHex.append("-");
+        }
+        if(formNum.getEight() != null && formNum.getEight() != "" ) {
+        	sbu.append((char) Integer.parseInt(formNum.getEight(),16));        
+        	sbuHex.append(checkNum(formNum.getEight()));sbuHex.append("-");
+        }
         String s = sbu.toString();
-        
-        StringBuffer sbuHex = new StringBuffer();				//拼接获得的命令
-        sbuHex.append(checkNum(formNum.getOne()));sbuHex.append("-");				//如果只有一位，则在前面补零
-        sbuHex.append(checkNum(formNum.getTwo()));sbuHex.append("-");
-        sbuHex.append(checkNum(formNum.getThree()));sbuHex.append("-");
-        sbuHex.append(checkNum(formNum.getFour()));sbuHex.append("-");
-        sbuHex.append(checkNum(formNum.getFive()));sbuHex.append("-");
-        sbuHex.append(checkNum(formNum.getSix()));sbuHex.append("-");
-        sbuHex.append(checkNum(formNum.getSeven()));sbuHex.append("-");
-        sbuHex.append(checkNum(formNum.getEight()));
+        sbuHex.deleteCharAt(sbuHex.length()-1);
         String sHex = sbuHex.toString().toUpperCase();
         
         if(formNum.getType() == 1) {
