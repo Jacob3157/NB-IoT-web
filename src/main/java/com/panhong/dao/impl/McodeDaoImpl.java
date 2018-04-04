@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.panhong.dao.McodeDao;
@@ -16,7 +17,7 @@ import com.panhong.model.TicketInfo;
 @Repository
 public class McodeDaoImpl implements McodeDao{
 	
-	@Resource
+	@Resource(name = "sessionFactory")
 	public SessionFactory sessionFactory;
 	
 	public void setSessionFactory(SessionFactory sessionFactory) {

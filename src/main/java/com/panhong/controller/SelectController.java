@@ -10,10 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.panhong.model.Client;
-import com.panhong.model.Command;
 import com.panhong.model.InfoRelease;
 import com.panhong.model.Location;
 import com.panhong.model.Machine;
@@ -40,6 +36,7 @@ import com.panhong.model.Parts;
 import com.panhong.model.SystemRecord;
 import com.panhong.model.User;
 import com.panhong.model.UserProperty;
+import com.panhong.model.NB.Command;
 import com.panhong.service.BenefitService;
 import com.panhong.service.InfoReleaseService;
 import com.panhong.service.LocationService;
@@ -52,6 +49,7 @@ import com.panhong.service.PartsService;
 import com.panhong.service.SystemRecordService;
 import com.panhong.service.UserPropertyService;
 import com.panhong.service.UserService;
+import com.panhong.service.WelllidService;
 import com.panhong.util.CommonUtil;
 import com.panhong.util.DataBean;
 import com.panhong.util.HttpUtil;
@@ -97,6 +95,9 @@ public class SelectController {
 	
 	@Resource
 	public PartsService partsService;
+	
+	@Resource
+	public WelllidService welllidService;
 	//日志显示
 	private static final Log logger = LogFactory
             .getLog(SelectController.class);
@@ -924,35 +925,61 @@ public class SelectController {
 		return data;
 	}
 	
-	//返回当前的命令表
-	@RequestMapping(value="/getCommandInfo")
-	public  @ResponseBody JSONObject getCommandInfo(HttpServletRequest request,HttpServletResponse response,Model model){
+	//返回NB设置信息
+	@RequestMapping(value="/getNBconfig")
+	public  @ResponseBody JSONObject getNBconfig(HttpServletRequest request,HttpServletResponse response,Model model){
 
-		List<Command> list = SingleUdpList.getSingleUdpList().getCommandList();
+		SingleUdpList list = SingleUdpList.getSingleUdpList();
 
+//		int delayTime = list.getDelayTime();
+		int delayTime = welllidService.getDelayTime();
+				
 		List total=new ArrayList();	
 		
-		for(Command c:list){
-			JSONObject result=new JSONObject();
-			result.put("id", c.getId());
-			if(c.getRequest() != null) {
-				result.put("request", c.getRequestHex() + "(" + c.getRequest() + ")");
-			}else {
-				result.put("request", c.getRequest());
-			}
-			if(c.getResponse() != null){
-				result.put("response", c.getResponseHex()+ "(" + c.getResponse() + ")");
-			}else {
-				result.put("response", c.getResponse());
-			}
-			result.put("requestName", c.getRequestName());
-			result.put("responseName", c.getResponseName());
-			total.add(result);
-		}
-		
+		JSONObject result=new JSONObject();
+		result.put("id", 1);
+		result.put("delayTime", delayTime);
+		total.add(result);
+	
 		JSONObject data=new JSONObject();
 		data.put("total", 1);
 		data.put("rows", total);
 		return data;
 	}
+	
+	//返回当前的命令表
+		@RequestMapping(value="/getCommandInfo")
+		public  @ResponseBody JSONObject getCommandInfo(HttpServletRequest request,HttpServletResponse response,Model model){
+
+			List<Command> list = SingleUdpList.getSingleUdpList().getCommandList();
+
+			list = welllidService.getCommandInfo();
+					
+			List total=new ArrayList();	
+			
+			for(Command c:list){
+				JSONObject result=new JSONObject();
+				result.put("id", c.getId());
+				if(c.getRequest() != null) {
+					result.put("request", c.getRequestHex() + "(" + c.getRequest() + ")");
+				}else {
+					result.put("request", c.getRequest());
+				}
+				if(c.getResponse() != null){
+					result.put("response", c.getResponseHex()+ "(" + c.getResponse() + ")");
+				}else {
+					result.put("response", c.getResponse());
+				}
+				result.put("requestName", c.getRequestName());
+				result.put("responseName", c.getResponseName());
+				total.add(result);
+			}
+			
+			JSONObject data=new JSONObject();
+			data.put("total", 1);
+			data.put("rows", total);
+			return data;
+		}
+	
+	
 }

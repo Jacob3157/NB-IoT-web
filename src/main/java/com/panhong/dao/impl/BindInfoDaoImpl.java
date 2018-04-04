@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.type.StringType;
 import org.hibernate.type.Type;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.panhong.dao.BindInfoDao;
@@ -18,7 +19,7 @@ import com.panhong.model.User;
 @Repository
 public class BindInfoDaoImpl implements BindInfoDao {
 
-	@Resource
+	@Resource(name = "sessionFactory")
 	public SessionFactory sessionFactory;
 	
 	public void setSessionFactory(SessionFactory sessionFactory) {

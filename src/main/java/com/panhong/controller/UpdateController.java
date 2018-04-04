@@ -455,4 +455,10 @@ public class UpdateController {
 		welllidService.updateCommandName(formNum);
 		return "welllidInfoWeb";
 	}
+	
+	@RequestMapping(value="/updateDelayTime")
+	public String updateDelayTime(int delayTime,Model model) throws UnsupportedEncodingException{
+		welllidService.updateDelayTime(delayTime);
+		return "welllidInfoWeb";
+	}
 }

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.panhong.dao.SystemRecordDao;
@@ -14,7 +15,7 @@ import com.panhong.model.SystemRecord;
 @Repository
 public class SystemRecordDaoImpl implements SystemRecordDao {
 	
-	@Resource
+	@Resource(name = "sessionFactory")
 	public SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

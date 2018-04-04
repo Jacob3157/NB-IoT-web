@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.panhong.controller.SelectController;
@@ -22,7 +23,7 @@ public class OrderRecordDaoImpl implements OrderRecordDao {
 	private static final Log logger = LogFactory
 	            .getLog(OrderRecordDaoImpl.class);
 	
-	@Resource
+	@Resource(name = "sessionFactory")
 	public SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

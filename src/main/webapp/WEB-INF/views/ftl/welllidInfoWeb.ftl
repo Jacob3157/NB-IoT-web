@@ -80,6 +80,7 @@
 		   init();
 		   update();
 		   updateCommandList();
+		   updateNBConfig();
 		   $(".datagrid-header-check").html("");
  		  	
 		   
@@ -95,6 +96,9 @@
 		   });
 		   $("#change_name").click(function(){
 			   changeCommandName();
+		   });
+		   $("#change_time").click(function(){
+			   changeDelayTime();
 		   });
 		   
 		   
@@ -137,13 +141,43 @@
 		    onSubmit: function(){
 		    },
 		    success:function(message){
-				updateCommandList();
+		    	updateCommandList();
 		    }
 		});
 
 	}
-	function updateCommandList(){
+	function changeDelayTime(){
+		$('#change_delay_time').form({
+		    url:'/Wechat/update/updateDelayTime',
+		    onSubmit: function(){
+		    },
+		    success:function(message){
+		    	updateNBConfig();
+		    }
+		});
+
+	}
+	function updateNBConfig(){
 		$('#dg2').datagrid({
+			title:'NB-IoT配置信息',
+            singleSelect: false,
+            url: '/Wechat/select/getNBconfig',
+            checkOnSelect:true,
+            selectOnCheck:true,
+            autoRowHeight: true,
+            pagination: false,
+            fitColumns: true,
+            loadMsg:"Processing, please waiting...",
+            columns: [[
+           	{ field: 'id', title: "ID", width: '25%'},
+           	{ field: 'delayTime', title: "delay time", width: '75%'},
+        ]]
+        });
+		$("#dg2").datagrid("load");
+	}
+	
+	function updateCommandList(){
+		$('#dg3').datagrid({
 			title:'NB-IoT命令',
             singleSelect: false,
             url: '/Wechat/select/getCommandInfo',
@@ -161,8 +195,9 @@
             { field: 'response', title: "Driver to NB", width: '35%'},
         ]]
         });
-		$("#dg2").datagrid("load");
+		$("#dg3").datagrid("load");
 	}
+	
 	function unixToDate(unixTime) {
         var time = new Date(unixTime);
         var ymdhis = "";
@@ -321,7 +356,19 @@
 	
 	<br/>
 	<br/>
-	<table id="dg2">
+	
+	<form id = "change_delay_time" method = "post">
+		<label>修改延迟时间为</label>
+		<input name = "delayTime" type = "text" value = "">
+		<label>ms</label>
+		<input type="submit" value = "修改"  id="change_time" width = "1%" >
+	</form>
+	
+	<br/>
+	<br/>
+	<table id = "dg2">
+	</table>
+	<table id= "dg3">
 	
 	</table>
 

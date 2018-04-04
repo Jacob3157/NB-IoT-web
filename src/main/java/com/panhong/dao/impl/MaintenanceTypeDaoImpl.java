@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.panhong.dao.MaintenanceTypeDao;
@@ -15,7 +16,7 @@ import com.panhong.model.MaintenanceType;
 @Repository
 public class MaintenanceTypeDaoImpl implements MaintenanceTypeDao {
 	
-	@Resource
+	@Resource(name = "sessionFactory")
 	public SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {

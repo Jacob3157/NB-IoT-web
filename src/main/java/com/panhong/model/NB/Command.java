@@ -1,14 +1,31 @@
-package com.panhong.model;
+package com.panhong.model.NB;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "command", catalog = "nbinfo")
 public class Command {
 
+	@Id
+	@Column(name="id",nullable=false,unique=true)
+	@GeneratedValue
 	private int id;
-	private String requestName;
-	private String responseName;
-	private String request;
-	private String response;
 	
+	@Column(name = "requestName", nullable = true, length = 20)
+	private String requestName;
+	@Column(name = "responseName", nullable = true, length = 20)
+	private String responseName;
+	@Column(name = "request", nullable = true, length = 20)
+	private String request;
+	@Column(name = "response", nullable = true, length = 20)
+	private String response;
+	@Column(name = "requestHex", nullable = true, length = 40)
 	private String requestHex;
+	@Column(name = "responseHex", nullable = true, length = 40)
 	private String responseHex;
 	
 	
@@ -22,9 +39,6 @@ public class Command {
 	
 	public int getId() {
 		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
 	}
 	public String getRequest() {
 		return request;
